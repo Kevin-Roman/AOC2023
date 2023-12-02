@@ -4,8 +4,18 @@
 #include <locale>
 #include <string>
 
+constexpr char DEFAULT_CHAR = '\0';
+constexpr int RED_THRESHOLD = 12;
+constexpr int GREEN_THRESHOLD = 13;
+constexpr int BLUE_THRESHOLD = 14;
+
+bool isValidColor(const std::string& color, int count) {
+  return (color == "red" && count > RED_THRESHOLD) ||
+         (color == "green" && count > GREEN_THRESHOLD) ||
+         (color == "blue" && count > BLUE_THRESHOLD);
+}
+
 int main() {
-  const char DEFAULT_CHAR = '\0';
   const std::filesystem::path filePath =
       "C:/Users/kevro/Programming/Advent Of Code/AOC2023/Day 2 Cube "
       "Conundrum/input.txt";
@@ -19,40 +29,34 @@ int main() {
   std::string word;
   int total = 0;
   int id = 0;
-  bool valid = true;
+  bool isGameValid = true;
 
   while (input >> word) {
     if (word == "Game") {
-      if (valid) {
+      if (isGameValid) {
         total += id;
       }
 
       input >> word;
       word.pop_back();
       id = std::stoi(word);
-      valid = true;
+      isGameValid = true;
     } else {
       int count = std::stoi(word);
       input >> word;
-      std::string colour = word.substr(0, word.find_first_of(";,"));
+      const std::string colour = word.substr(0, word.find_first_of(";,"));
 
-      if (colour == "red" && count > 12) {
-        valid = false;
-      } else if (colour == "green" && count > 13) {
-        valid = false;
-      } else if (colour == "blue" && count > 14) {
-        valid = false;
+      if (isValidColor(colour, count)) {
+        isGameValid = false;
       }
     }
   }
 
-  if (valid) {
+  if (input.eof() && isGameValid) {
     total += id;
   }
 
-  input.close();
-
-  std::cout << total << std::endl;
+  std::cout << "Total: " << total << std::endl;
 
   return 0;
 }
