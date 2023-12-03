@@ -5,8 +5,6 @@
 #include <locale>
 #include <string>
 
-constexpr char DEFAULT_CHAR = '\0';
-
 int main() {
   const std::filesystem::path filePath =
       "C:/Users/kevro/Programming/Advent Of Code/AOC2023/Day 2 Cube "

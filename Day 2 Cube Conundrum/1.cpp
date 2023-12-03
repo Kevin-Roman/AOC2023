@@ -4,7 +4,6 @@
 #include <locale>
 #include <string>
 
-constexpr char DEFAULT_CHAR = '\0';
 constexpr int RED_THRESHOLD = 12;
 constexpr int GREEN_THRESHOLD = 13;
 constexpr int BLUE_THRESHOLD = 14;
